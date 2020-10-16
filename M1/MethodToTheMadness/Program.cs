@@ -9,7 +9,7 @@ namespace MethodToTheMadness
             EatMe();
             DrinkMe();
 
-            Console.WriteLine("\n? Lewis Carroll, Alice in Wonderland");
+            Console.WriteLine("\n- Lewis Carroll, Alice in Wonderland");
             Console.ReadLine();
         }
 
