@@ -18,30 +18,44 @@ namespace StudentManagementSystem.Data
         }
 
         // list, add, edit, delete
-        public List<Student> List()
+        public ListStudentResponse List()
         {
-            List<Student> students = new List<Student>();
-            using (StreamReader sr = new StreamReader(_filePath))
+
+            ListStudentResponse response = new ListStudentResponse();
+            response.Success = true;
+
+            response.Students = new List<Student>();
+
+            try
             {
-                sr.ReadLine();
-                string line;
-
-                while((line = sr.ReadLine()) != null)
+                using (StreamReader sr = new StreamReader(_filePath))
                 {
-                    Student newStudent = new Student();
+                    sr.ReadLine();
+                    string line;
 
-                    string[] columns = line.Split(',');
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        Student newStudent = new Student();
 
-                    newStudent.FirstName = columns[0];
-                    newStudent.LastName = columns[1];
-                    newStudent.Major = columns[2];
-                    newStudent.GPA = decimal.Parse(columns[3]);
+                        string[] columns = line.Split(',');
 
-                    students.Add(newStudent);
+                        newStudent.FirstName = columns[0];
+                        newStudent.LastName = columns[1];
+                        newStudent.Major = columns[2];
+                        newStudent.GPA = decimal.Parse(columns[3]);
+
+                        response.Students.Add(newStudent);
+                    }
                 }
             }
-
-                return students;
+            catch(Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+            }
+               
+            
+            return response;
         }
 
         public void add(Student student)
@@ -56,19 +70,19 @@ namespace StudentManagementSystem.Data
 
         public void Edit(Student student, int index)
         {
-            var students = List();
+            var response = List();
 
-            students[index] = student;
+            response.Students[index] = student;
 
-            CreateStudentFile(students);
+            CreateStudentFile(response.Students);
         }
 
         public void Delete(int index)
         {
-            var students = List();
-            students.RemoveAt(index);
+            var response = List();
+            response.Students.RemoveAt(index);
 
-            CreateStudentFile(students);
+            CreateStudentFile(response.Students);
         }
 
         private string CreateCsvForStudent(Student student)

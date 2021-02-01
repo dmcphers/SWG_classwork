@@ -32,7 +32,7 @@ namespace SystemIO.Tests
         {
             StudentRepository repo = new StudentRepository(_filePath);
 
-            List<Student> students = repo.List();
+            List<Student> students = repo.List().Students;
 
             Assert.AreEqual(4, students.Count());
 
@@ -57,7 +57,7 @@ namespace SystemIO.Tests
 
             repo.add(newStudent);
 
-            List<Student> students = repo.List();
+            List<Student> students = repo.List().Students;
 
             Assert.AreEqual(5, students.Count());
 
@@ -75,7 +75,7 @@ namespace SystemIO.Tests
             StudentRepository repo = new StudentRepository(_filePath);
             repo.Delete(0);
 
-            List<Student> students = repo.List();
+            List<Student> students = repo.List().Students;
 
             Assert.AreEqual(3, students.Count);
             
@@ -92,7 +92,7 @@ namespace SystemIO.Tests
         public void CanEditStudent()
         {
             StudentRepository repo = new StudentRepository(_filePath);
-            List<Student> students = repo.List();
+            List<Student> students = repo.List().Students;
 
             Student editedStudent = students[0];
             editedStudent.GPA = 3.0M;
@@ -101,7 +101,7 @@ namespace SystemIO.Tests
 
             Assert.AreEqual(4, students.Count);
 
-            students = repo.List();
+            students = repo.List().Students;
             Student check = students[0];
 
             Assert.AreEqual("Joe", check.FirstName);

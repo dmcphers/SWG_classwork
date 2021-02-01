@@ -143,5 +143,14 @@ namespace StudentManagementSystem.Helpers
                 }
             }
         }
+
+        public static void PrintListErrorMessage(ListStudentResponse response)
+        {
+            Console.WriteLine("An error occurred loading the student list :");
+            Console.WriteLine(response.Message);
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
+            return;
+        }
     }
 }

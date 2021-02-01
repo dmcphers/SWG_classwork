@@ -17,7 +17,16 @@ namespace StudentManagementSystem.Workflows
             Console.WriteLine("Edit Student GPA");
 
             StudentRepository repo = new StudentRepository(Settings.FilePath);
-            List<Student> students = repo.List();
+            ListStudentResponse response = repo.List();
+
+            
+            if (!response.Success)
+            {
+                ConsoleIO.PrintListErrorMessage(response);
+                return;
+            }
+
+            List<Student> students = response.Students;
 
             ConsoleIO.PrintPickListOfStudents(students);
             Console.WriteLine();

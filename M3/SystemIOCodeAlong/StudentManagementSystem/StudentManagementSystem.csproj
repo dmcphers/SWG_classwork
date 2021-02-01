@@ -47,6 +47,7 @@
     <Compile Include="Helpers\ConsoleIO.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="MainMenu.cs" />
+    <Compile Include="Model\ListStudentRepository.cs" />
     <Compile Include="Model\Student.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

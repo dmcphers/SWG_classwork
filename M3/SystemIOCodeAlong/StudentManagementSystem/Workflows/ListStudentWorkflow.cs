@@ -14,7 +14,17 @@ namespace StudentManagementSystem.Workflows
         public void Execute()
         {
             StudentRepository repo = new StudentRepository(Settings.FilePath);
-            List<Student> students = repo.List();
+
+            ListStudentResponse response = repo.List();
+
+
+            if (!response.Success)
+            {
+                ConsoleIO.PrintListErrorMessage(response);
+                return;
+            }
+
+            List<Student> students = response.Students;
 
             Console.Clear();
             Console.WriteLine("Student List");
